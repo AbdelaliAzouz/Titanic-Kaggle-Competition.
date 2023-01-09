@@ -35,8 +35,8 @@ input, select{
 .form{
     background-color: #2f566e;
     width: 28%;
-    margin-left: 60px;
-    margin-top: 80px;
+    margin-left: 80px;
+    margin-top: 50px;
     padding-bottom: 20px;
     padding-top: 10px;
 }
@@ -64,4 +64,18 @@ input, select{
     color: #eaeff3;
     margin-top:60px;
     text-align: right;
+}
+
+.Survived{
+    color: #d2c4bd;
+    background-color: #19425c;
+    display: inline;
+    margin-left: 80px;
+    margin-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: #a29c47;
+    border-width: 3px;
+    border-radius: 20px;
+    border-style: dashed;
 }

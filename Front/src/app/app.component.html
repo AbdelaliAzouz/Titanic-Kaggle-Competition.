@@ -6,8 +6,9 @@
   <form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
     <label for="Pclass">Passenger class: [1 / 2 / 3]</label><br>
     <input type="text" id="Pclass" name="Pclass" ngModel><br>
-
+    
     <label for="Sex">Gender:</label><br>
+    <!-- <input type="text" id="Sex" name="Sex" ngModel><br> -->
     <select id="Sex" name="Sex" ngModel>
         <option value="1">Male</option>
         <option value="0">Female</option>
@@ -25,6 +26,11 @@
       <input class="predict2" type="submit" value="Predict" ngModel>
     </div>
   </form>
+</div>
+
+<div>
+  <h2 class=""></h2>
+<h2 class="Survived">{{apiResponse.prediction}}</h2>
 </div>
 
 <div>

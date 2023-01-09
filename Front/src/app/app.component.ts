@@ -13,34 +13,33 @@ export class AppComponent {
 
   constructor(private http: HttpClient){}
 
+  apiResponse: any;
+
   onSubmit(data:any) {
-    const data2 = {
-      Pclass: parseInt(data.Pclass),
-      Sex: parseInt(data.Sex),
-      Age: parseFloat(data.Age),
-      SibSp: parseInt(data.SibSp),
-      eParch: parseInt(data.eParch),
-    };
+    // const data2 = {
+    //   Pclass: parseInt(data.Pclass),
+    //   Sex: parseInt(data.Sex),
+    //   Age: parseFloat(data.Age),
+    //   SibSp: parseInt(data.SibSp),
+    //   eParch: parseInt(data.eParch),
+    // };
+
     
-    console.warn(data2);
-    return this.http.post('http://localhost:8000/predict', data2)
-    // return this.http.post('https://titanic-prediction-11081-default-rtdb.europe-west1.firebasedatabase.app/predict.json', data)
-    .subscribe(
-      (response) => {
-        console.log('Response:', response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
     
+    console.warn(data);
+    return this.http.post('http://localhost:8000/predict', data).subscribe(response => {
+      this.apiResponse = response;
+      console.log(response);
+    });
   }
+  
 }
 
 @Injectable()
 export class CorsInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const corsReq = req.clone({ headers: req.headers.set('Access-Control-Allow-Origin', '*') });
+    const corsReq = req.clone({ headers: req.headers.set('Access-Control-Allow-Origin', '*')
+    .set('Access-Control-Allow-Headers', 'Content-Type, Accept'), });
     return next.handle(corsReq);
   }
 }

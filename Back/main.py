@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi import Response
+from fastapi.middleware.cors import CORSMiddleware
 
 import pickle
 import os
@@ -10,11 +11,21 @@ import numpy as np
 
 app = FastAPI()
 
-@app.middleware("http")
-async def add_cors_headers(request: Request, response: Response):
-    response.headers["Access-Control-Allow-Origin"] = "http://localhost:4200"
-    response.headers["Access-Control-Allow-Methods"] = "*"
-    response.headers["Access-Control-Allow-Headers"] = "*"
+# @app.middleware("http")
+# async def add_cors_headers(request: Request, response: Response):
+#     response.headers["Access-Control-Allow-Origin"] = "*"
+#     response.headers["Access-Control-Allow-Methods"] = "POST, GET"
+#     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept, OPTIONS"
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 pickle_in=open("kaggle_titanic_model.pkl","rb")
 pred=pickle.load(pickle_in)
@@ -30,7 +41,7 @@ class Passenger(BaseModel):
 def root():
     return {"message": "Api Titanic"}
 
-@app.post(path="/predict",)
+@app.post(path="/predict")
 
 def predict(data:Passenger):
     data=data.dict()
